@@ -1,60 +1,60 @@
-"vim-plug
+" vim-plug
 call plug#begin('~/.vim/plugged')
 
-"deep-space color scheme
+" deep-space color scheme
 Plug 'https://github.com/tyrannicaltoucan/vim-deep-space.git'
 
-"Tender theme
+" Tender theme
 Plug 'jacoborus/tender'
 
-"Airline theme plugin
+" Airline theme plugin
 Plug 'vim-airline/vim-airline-themes'
 Plug 'dikiaap/minimalist'
 
-"air-line
+" air-line
 Plug 'bling/vim-airline'
 Plug 'https://github.com/powerline/fonts.git'
 
-"CtrlP
-Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
-
-"Vim-Test
+" Vim-Test
 " Plug 'janko-m/vim-test'
 
-"Nerd Tree
+" UndoTree
+Plug 'https://github.com/mbbill/undotree.git'
+
+" Nerd Tree
 Plug 'https://github.com/scrooloose/nerdtree.git'
 
-"Fugitive
+" Fugitive
 Plug 'https://github.com/tpope/vim-fugitive.git'
 
-"Indention Helper
+" Indention Helper
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 
-"Syntastic
+" Syntastic
 Plug 'https://github.com/vim-syntastic/syntastic.git'
 
-"Surround
+" Surround
 Plug 'tpope/vim-surround'
 
-"TagBar
+" TagBar
 Plug 'majutsushi/tagbar'
 
-"Vim-Obsession (session manager)
+" Vim-Obsession (session manager)
 Plug 'https://github.com/tpope/vim-obsession.git'
 
-"Vim-Bookmarks
+" Vim-Bookmarks
 Plug 'MattesGroeger/vim-bookmarks'
 
-"NerdCommenter
+" NerdCommenter
 Plug 'scrooloose/nerdcommenter'
 
-"delimitMate
+" delimitMate
 Plug 'https://github.com/Raimondi/delimitMate.git'
 
-"Twig
+" Twig
 Plug 'https://github.com/beyondwords/vim-twig.git'
 
-"Easy Align
+" Easy Align
 Plug 'junegunn/vim-easy-align'
 
 " Split-join
@@ -63,7 +63,7 @@ Plug 'https://github.com/AndrewRadev/splitjoin.vim.git'
 " Linediff
 Plug 'https://github.com/AndrewRadev/linediff.vim.git'
 
-"VimWiki
+" VimWiki
 Plug 'https://github.com/vimwiki/vimwiki.git'
 
 " PHP PSR-2 style fixer
@@ -84,14 +84,20 @@ Plug 'airblade/vim-gitgutter'
 " EasyMotion
 Plug 'https://github.com/easymotion/vim-easymotion.git'
 
+" FZF Fuzzy Finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Vim Multiple-cursors
+Plug 'https://github.com/terryma/vim-multiple-cursors.git'
+
 call plug#end()
 
-"set color scheme
+" set color scheme
 set background=dark
 syntax on
 colorscheme minimalist
 
-"General configuration options
+" General configuration options
 set ai
 set autochdir
 set backspace=indent,eol,start
@@ -110,10 +116,12 @@ set splitright
 set autoindent
 set nocompatible
 set t_Co=256
+set cursorline
+hi CursorLine term=bold cterm=bold guibg=Grey40
 
 let mapleader="\<SPACE>"
 
-"Insert mode mappings
+" Insert mode mappings
 inoremap II <Esc>I
 inoremap AA <Esc>A
 inoremap OO <Esc>O
@@ -122,34 +130,39 @@ inoremap SS <Esc>S
 inoremap DD <Esc>dd
 inoremap UU <Esc>u
 
-"Resize window
+" Resize window
 nmap <silent> <leader>- :res -5<CR>
 nmap <silent> <leader>= :res +5<CR>
-nmap <silent> <leader>< :vertical resize +5<CR>
-nmap <silent> <leader>> :vertical resize -5<CR>
+nmap <silent> <leader>> :vertical resize +5<CR>
+nmap <silent> <leader>< :vertical resize -5<CR>
 
 " Special Characters
-" if &listchars ==# 'eol:$'
-"   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-" endif
-" set list
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:•,extends:>,precedes:•,nbsp:+
+endif
+set list
 "
 " Also highlight all tabs and trailing whitespace characters.
 " highlight ExtraWhitespace ctermbg=lightblue guibg=lightblue
 " match ExtraWhitespace /\s\+$\|\t/
 
 " show whitespace characters
-set list listchars=tab:>-,trail:•,precedes:•
+" set list listchars=tab:>-,trail:•,precedes:•
 
-"enable filetype plugins
+" enable filetype plugins
 filetype on
 filetype plugin on
 filetype plugin indent on
 
-"Search
+" Search
 set ignorecase
 set smartcase
 vnoremap // y/<C-R>"<CR>
+set incsearch
+set hlsearch
+hi Search cterm=NONE ctermfg=91 ctermbg=74
+hi Search guibg=peru guifg=wheat
+
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
@@ -164,11 +177,11 @@ map <silent> <leader>S :setlocal nospell<CR>
 let g:MultipleSearchMaxColors = 10
 
 
-"Other Configurations
-nnoremap ; :
-nnoremap Q @q
+" Other Configurations
+" nnoremap ; :
+" nnoremap Q @q
 
-"Set relative numbers
+" Set relative numbers
 function! NumberToggle()
   if(&relativenumber == 1)
     set number
@@ -177,14 +190,14 @@ function! NumberToggle()
   endif
 endfunc
 
-"call function with Ctrl+n
-nnoremap <C-n> :call NumberToggle()<cr>
+" call function with Ctrl+n
+nmap <silent><leader>n :call NumberToggle()<cr>
 
 if (has("termguicolors"))
  set termguicolors
 endif
 
-"air-line preferences
+" air-line preferences
 let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_powerline_fonts = 1
@@ -223,7 +236,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 
-"Vim-Test Configureation
+" Vim-Test Configureation
 " nmap <silent> <leader>t :TestNearest<CR>
 " nmap <silent> <leader>T :TestFile<CR>
 " nmap <silent> <leader>a :TestSuite<CR>
@@ -242,13 +255,11 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=2
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#7887a1   ctermbg=3
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#343d4b ctermbg=4
 
 " xmllint
 map <leader>xl :%!xmllint --format -<CR>
 
-"Syntastic Settings
+" Syntastic Settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -260,10 +271,10 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 nmap <silent> <leader>syn :SyntasticToggleMode<CR>
 
-"TagBar
+" TagBar
 nmap <silent> <leader>tb :TagbarToggle<CR>
 
-"Nerd Commenter Settings
+" Nerd Commenter Settings
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -286,10 +297,7 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-"Vim easy align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
+" Vim easy align
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
@@ -332,10 +340,18 @@ let g:php_cs_fixer_verbose = 0
 
 
 " Symantic Highlighting
-:nnoremap <Leader>hl :SemanticHighlightToggle<cr>
+nnoremap <Leader>hl :SemanticHighlightToggle<cr>
 autocmd FileType javascript setlocal iskeyword+=$
 autocmd FileType php setlocal iskeyword+=$
-let g:semanticTermColors = [ 14, 22, 27, 36, 40, 50, 85, 81, 70, 75, 69, 63, 57, 93, 99, 119, 157, 141, 135, 129, 208, 214, 203, 196, 197 ]
+" let g:semanticTermColors = [ 50, 85, 81, 70, 75, 69, 63, 57, 93, 99, 119, 157, 141, 135, 129, 208, 214, 203, 196, 197 ]
+let g:semanticTermColors = [28,1,2,3,4,5,6,7,25,9,10,34,12,13,14,15,16,125,124,19]
+" let g:semanticTermColors = [28,1,2,3,4,5,6,7,25,9,10,34,12,13,14,15,16,125,124,19, 21, 26]
 
 " EasyMotion
-map <Leader> <Plug>(easymotion-prefix)
+map <Leader><Leader> <Plug>(easymotion-prefix)
+
+" UndoTree
+nnoremap <leader>ht :UndotreeToggle<cr>
+
+" FZF Fuzzy Finder
+nmap <silent><leader>ff :FZF ~/gitrepos<CR>
